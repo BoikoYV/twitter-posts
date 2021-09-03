@@ -10,3 +10,4 @@ const api = new Api();
 const post = new Card(BASE_URL, api);
 post.showPostsList();
 
+// console.log(Card);

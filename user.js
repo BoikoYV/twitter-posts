@@ -5,7 +5,7 @@ class User {
     }
 
     async getUsers() {
-        const users = await this.requestsObj.makeRequest(`${this.url}/users`)
+        const users = await this.requestsObj.getData(`${this.url}/users`)
 
         console.log(users);
     }
