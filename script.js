@@ -9,4 +9,4 @@ const BASE_URL = 'https://ajax.test-danit.com/api/json';
 const api = new Api();
 const post = new Card(BASE_URL, api);
 post.showPostsList();
-// post.getUsers()
+

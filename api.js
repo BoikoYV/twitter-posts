@@ -1,15 +1,19 @@
 
 class Api {
 
-    makeRequest(baseUrl, requestParams = {}) {
-        return fetch(`${baseUrl}`, requestParams)
+    async makeRequest(baseUrl, requestParams = {}) {
+        return await fetch(`${baseUrl}`, requestParams)
             .then((response) => {
-                if (response.ok) {
-                    return response.json()
-                } else {
-                    throw new Error('Server Error')
-                }
+                return this.checkResponse(response)
             })
+    }
+
+    checkResponse(response) {
+        if (response.ok) {
+            return response.json()
+        } else {
+            throw new Error('Server Error')
+        }
     }
 
 }
