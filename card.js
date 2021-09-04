@@ -5,13 +5,12 @@ class Card {
         this.modal = modal;
         this.url = url;
         this.list = document.querySelector('.posts');
-        // this.deletePostBtn.addEventListener('click', this.deletePost)
+        this.currentPostId = null;
     }
 
     async getUsers() {
         const users = await this.requestsObj.getData(`${this.url}/users`)
         this.users = users;
-        // console.log(users);
     }
 
     async getPosts() {
@@ -22,7 +21,6 @@ class Card {
     async showPostsList() {
         this.getUsers();
         this.getPosts().then(posts => {
-            // console.log(posts);
             this.posts = posts;
 
             posts.forEach(({ userId, body, title, id }) => {
@@ -52,18 +50,12 @@ class Card {
         deletePostBtn.addEventListener('click', (e) => {
             this.modal.deleteModal();
             this.deletePost(id, e.target.closest('.post__item'));
-
         })
 
         editBtn.addEventListener('click', () => {
-
-            // const post = document.querySelector(`[data-post-id="${id}"]`);
             const post = document.querySelector(`[data-post-id="${id}"]`);
             const postTitle = post.querySelector('.post__title');
-            // postTitle.innerText = newTitle.value;
-
             const postText = post.querySelector('.post__text');
-            // postText.innerText = newText.value;
 
             this.modal.showModal(userId, id, name, lastName, email, postTitle.innerText, postText.innerText);
         })
@@ -75,20 +67,29 @@ class Card {
     }
 
     async deletePost(id, li) {
-        console.log(li);
         await this.requestsObj.deleteData(`${this.url}/posts/${id}`)
         li.remove();
     }
 
-    // updatePost(id) {
-    //     const post = document.querySelector(`[data-post-id=${id}]`);
-    //     console.log(post);
-    // }
+    updatePost(id) {
+        const newTitle = document.querySelector('#post__title');
+        const newText = document.querySelector('#post__text');
+        const formData = { title: newTitle.value, body: newText.value };
+
+        const post = document.querySelector(`[data-post-id="${id}"]`);
+        const postTitle = post.querySelector('.post__title');
+        postTitle.innerText = newTitle.value;
+
+        const postText = post.querySelector('.post__text');
+        postText.innerText = newText.value;
+
+        this.requestsObj.updateData(`${this.url}/posts/${id}`, formData)
+
+        newTitle.value = postTitle.innerText;
+        newText.value = postText.innerText;
+    }
+
     addPost() { }
-
-
-    savePost() { }
-
 
     createElement(tag, [classes], text = '') {
         const element = document.createElement(tag);
