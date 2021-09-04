@@ -15,7 +15,7 @@ class Modal {
         this.post = post;
     }
 
-    renderModal(userId, id, name, lastname, email, title = '', text = '') {
+    renderModal(userId, id, name, lastname, email, title = '', text = '', method = '') {
         const userInfo = this.createElement('div', ['modal__user-data']);
         userInfo.innerHTML = ` 
             <img class="user-photo" src="./img/${userId}.jpeg" alt="user photo">
@@ -40,7 +40,19 @@ class Modal {
 
         saveChangesBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            post.updatePost(id);
+            if (method === 'POST') {
+                const newPostObjData = this.post.getNewPostData();
+                newPostObjData.userId = userId;
+                const { title, body } = newPostObjData;
+                const newPost = this.post.renderPost(userId, name, lastname, body, title, email, id)
+
+                this.requestsObj.sendData(`${this.url}/posts/`, newPostObjData);
+                this.post.posts.push(newPostObjData);
+                this.post.list.prepend(newPost);
+            } else {
+                post.updatePost(id);
+            }
+
             this.deleteModal();
         })
 
@@ -49,9 +61,9 @@ class Modal {
         document.body.append(this.modal, this.modalOverlay)
     }
 
-    showModal(id, userId, name, lastname, email, title, text) {
-        this.renderModal(id, userId, name, lastname, email, title, text);
 
+    showModal(userId, id, name, lastname, email, title, text, method = '') {
+        this.renderModal(userId, id, name, lastname, email, title, text, method);
         this.modalCloseBtn.addEventListener('click', () => {
             this.deleteModal()
         })

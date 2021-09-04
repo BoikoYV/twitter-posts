@@ -10,5 +10,6 @@ const post = new Card(BASE_URL, api, modal);
 
 document.addEventListener('DOMContentLoaded', () => {
     post.showPostsList();
+    post.addPost();
 
 })
