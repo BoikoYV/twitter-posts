@@ -1,3 +1,17 @@
+@font-face {
+    font-family: 'bakso';
+    src: url('fonts/baksosapi-webfont.woff2') format('woff2'), url('./fonts/baksosapi-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    src: url('fonts/comicneue-regular-webfont.woff2') format('woff2'), url('./fonts/comicneue-regular-webfont.woff') format('woff');
+    font-family: 'comic_neue';
+    font-weight: normal;
+    font-style: normal;
+}
+
 .document {
     margin: 0;
     padding: 20px 40px;
@@ -6,7 +20,8 @@
     flex-direction: column;
     align-items: center;
     font-size: 16px;
-    font-family: sans-serif;
+    color: #334267;
+    font-family: 'basko', sans-serif;
 }
 
 * {
@@ -57,7 +72,8 @@ button {
     height: 60px;
     object-fit: cover;
     object-position: center;
-    border-radius: 50%
+    border-radius: 50%;
+    /* display: block; */
 }
 
 .post__user-name {
@@ -94,11 +110,11 @@ button {
     background-color: #c91818;
 }
 
-.post__update-btn {
+.post__edit-btn {
     background-color: #ddecf7;
 }
 
-.post__update-btn:hover {
+.post__edit-btn:hover {
     background-color: #bccedc;
 }
 
@@ -108,4 +124,119 @@ button {
     margin-bottom: 50px;
     /* align-items: flex-end */
     margin-left: auto;
+}
+
+/* Modal */
+
+.modal {
+    border-radius: 5px;
+    display: flex;
+    padding: 30px 10px;
+    flex-direction: column;
+    /* position: absolute; */
+    position: fixed;
+    z-index: 2;
+    background-color: #fff;
+    width: 80vw;
+    min-height: 300px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #6583ce;
+    transform: translateY(-50%);
+    top: 50%;
+}
+
+/* .modal__title {
+    line-height: 1.5;
+} */
+
+.modal__close {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    padding: 5px;
+    font-size: 40px;
+    z-index: 2;
+    cursor: pointer;
+    font-family: 'comic_neue', sans-serif;
+    font-weight: 700;
+    transition: 0.3s;
+    width: auto;
+    color: #6583ce;
+}
+
+.modal__close:hover {
+    color: #ff0000c6;
+}
+
+.modal-overlay {
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background-color: #7598f070;
+    cursor: pointer;
+}
+
+/* form */
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: flex-start;
+}
+
+.form__title-field, .form__text-field {
+    border-radius: 5px;
+    font-family: inherit;
+    width: 100%;
+    font-size: 16px;
+    line-height: 20px;
+    color: #334267;
+    border: 1px solid #7598f070;
+    padding: 10px 5px;
+}
+
+.form__title-field::placeholder, .form__text-field::placeholder {
+    color: #65759dfa;
+}
+
+.form__title-field {
+    margin-bottom: 15px;
+}
+
+.form__text-field {
+    margin-bottom: 30px;
+}
+
+.form__label {
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #6583ce;
+}
+
+.modal__save-btn {
+    padding: 10px 30px;
+    width: auto;
+    margin: 0 auto;
+    background-color: rgb(77 98 216);
+    color: white;
+}
+
+.modal__save-btn:hover {
+    background-color: rgb(28 200 223);
+}
+
+.modal__user-data {
+    display: flex;
+    width: 80%;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    margin-top: 20px;
 }
