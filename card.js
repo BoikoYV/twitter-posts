@@ -51,7 +51,6 @@ class Card {
         const deletePostBtn = this.createElement('button', ['post__delete-btn'], 'Delete');
 
         deletePostBtn.addEventListener('click', (e) => {
-            console.log(this.modal);
             this.modal.deleteModal();
             this.deletePost(id, e.target.closest('.post__item'));
         })
@@ -62,6 +61,7 @@ class Card {
             const postText = post.querySelector('.post__text');
 
             this.modal.showModal(userId, id, name, lastName, email, postTitle.innerText, postText.innerText);
+
         })
 
         buttonsBox.append(editBtn, deletePostBtn);

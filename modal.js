@@ -1,12 +1,5 @@
-import Api from './api.js';
-import Card from './card.js';
-const BASE_URL = 'https://ajax.test-danit.com/api/json';
-
-const api = new Api();
-const post = new Card(BASE_URL, api);
-
 class Modal {
-    constructor(url, requestsObj) {
+    constructor(url, requestsObj, post) {
         this.url = url;
         this.modal = this.createElement('div', ['modal']);
         this.modalOverlay = this.createElement('div', ['modal-overlay']);
@@ -50,7 +43,7 @@ class Modal {
                 this.post.posts.push(newPostObjData);
                 this.post.list.prepend(newPost);
             } else {
-                post.updatePost(id);
+                this.post.updatePost(id);
             }
 
             this.deleteModal();
