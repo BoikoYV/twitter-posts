@@ -8,14 +8,18 @@ class Api {
             })
     }
 
-    async deleteData(baseUrl) {
+    async deleteData(baseUrl, id) {
         return await fetch(`${baseUrl}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' }
         })
             .then((response) => {
+                if (id > 100) {
+                    // server doesn`t include posts width id > 100
+                    console.error('No such post on server');
+                    return;
+                }
                 if (!response.ok) throw new Error('Server Error');
-                // return this.checkResponse(response)
             })
     }
 

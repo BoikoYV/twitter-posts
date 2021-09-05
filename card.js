@@ -70,7 +70,7 @@ class Card {
     }
 
     async deletePost(id, li) {
-        await this.requestsObj.deleteData(`${this.url}/posts/${id}`)
+        await this.requestsObj.deleteData(`${this.url}/posts/${id}`, id)
         li.remove();
     }
 
