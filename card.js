@@ -86,7 +86,7 @@ class Card {
         const postText = post.querySelector('.post__text');
         postText.innerText = newText.value;
 
-        this.requestsObj.updateData(`${this.url}/posts/${id}`, formData)
+        this.requestsObj.updateData(`${this.url}/posts/${id}`, formData, id)
 
         newTitle.value = postTitle.innerText;
         newText.value = postText.innerText;

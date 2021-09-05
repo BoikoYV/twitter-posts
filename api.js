@@ -23,13 +23,18 @@ class Api {
             })
     }
 
-    async updateData(baseUrl, objData) {
+    async updateData(baseUrl, objData, id) {
         return await fetch(`${baseUrl}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(objData)
         })
             .then((response) => {
+                if (id > 100) {
+                    // server doesn`t include posts width id > 100
+                    console.error('No such post on server');
+                    return;
+                }
                 return this.checkResponse(response)
             })
     }
