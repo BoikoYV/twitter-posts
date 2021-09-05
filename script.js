@@ -11,23 +11,8 @@ const modal = new Modal(BASE_URL, api,);
 const post = new Card(BASE_URL, api, modal, loader);
 modal.post = post;
 
-// showLoader();
 
 document.addEventListener('DOMContentLoaded', () => {
-    // loader.classList.remove('loader--active');
-
     post.renderPostsList();
-    // post.getPostsList();
     post.addPost();
-
 })
-
-
-function showLoader() {
-    loader.classList.add('loader--active');
-}
-
-// function hideLoader() {
-//     loader.classList.remove('loader--active');
-// }
-

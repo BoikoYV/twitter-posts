@@ -8,7 +8,6 @@ class Card {
         this.currentPostId = null;
         this.posts = [];
         this.loader = loader;
-        // this.postsElements = null;
     }
 
     async getUsers() {
