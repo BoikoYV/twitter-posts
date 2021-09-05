@@ -1,5 +1,5 @@
 class Card {
-    constructor(url, requestsObj, modal) {
+    constructor(url, requestsObj, modal, loader) {
         this.requestsObj = requestsObj;
         this.modal = modal;
         this.url = url;
@@ -7,6 +7,8 @@ class Card {
         this.addPostBtn = document.querySelector('.add-post__btn');
         this.currentPostId = null;
         this.posts = [];
+        this.loader = loader;
+        // this.postsElements = null;
     }
 
     async getUsers() {
@@ -14,24 +16,41 @@ class Card {
         this.users = users;
     }
 
-    async getPosts() {
-        const posts = await this.requestsObj.getData(`${this.url}/posts`)
+    getPosts() {
+        this.loader.classList.add('loader--active');
+        const posts = this.requestsObj.getData(`${this.url}/posts`)
         return posts;
     }
 
-    async showPostsList() {
+    getPostsList() {
         this.getUsers();
-        this.getPosts().then(posts => {
+
+        const postsPromissesArr = this.getPosts().then(posts => {
             this.posts = posts;
             this.postsCount = this.posts.length + 1;
 
-            posts.forEach(({ userId, body, title, id }) => {
+            return posts.map(({ userId, body, title, id }) => {
                 const { name, username, email } = this.users.find(user => user.id === userId);
-                this.list.append(this.renderPost(userId, name, username, body, title, email, id));
+                return this.renderPost(userId, name, username, body, title, email, id);
             })
         });
+        return postsPromissesArr;
+    }
 
-        return;
+    renderPostsList() {
+        const postsArr = this.getPostsList();
+        postsArr.then((posts) => {
+            return Promise.all(posts.map(post => {
+                return new Promise((resolve) => {
+                    resolve(post);
+                })
+            })).then((posts) => {
+                this.loader.classList.remove('loader--active');
+                posts.forEach(post => {
+                    this.list.append(post);
+                })
+            })
+        })
     }
 
     renderPost(userId, name, lastName, body, title, email, id) {
